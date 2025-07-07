@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Financeiro Pessoal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span class="material-icons">account_balance_wallet</span>
+            Controle Financeiro
+        </h1>
+        
+        <div class="section">
+            <h2><span class="material-icons">payments</span> Entradas</h2>
+            <div class="form-group">
+                <label for="month">Mês:</label>
+                <select id="month" class="form-control">
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Março</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="year">Ano:</label>
+                <input type="number" id="year" class="form-control" min="2000" max="2100" value="2023">
+            </div>
+            
+            <div class="form-group">
+                <label for="income-type">Tipo de Entrada:</label>
+                <select id="income-type" class="form-control">
+                    <option value="salary">Salário</option>
+                    <option value="flash">Renda Extra</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="income-amount">Valor:</label>
+                <input type="number" id="income-amount" class="form-control" step="0.01" min="0" placeholder="R$ 0,00">
+            </div>
+            
+            <div class="form-group">
+                <label for="income-date">Data:</label>
+                <input type="date" id="income-date" class="form-control">
+            </div>
+            
+            <button id="add-income" class="btn btn-primary">
+                <span class="material-icons">add_circle</span>
+                Adicionar Entrada
+            </button>
+        </div>
+        
+        <div class="section">
+            <h2><span class="material-icons">shopping_cart</span> Gastos</h2>
+            <div class="form-group">
+                <label for="expense-category">Categoria:</label>
+                <select id="expense-category" class="form-control">
+                    <option value="investment">Investimento</option>
+                    <option value="mother">Ajudar Mãe</option>
+                    <option value="personal">Pessoais</option>
+                    <option value="friends">Amigos</option>
+                    <option value="girlfriend">Namorada</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="expense-amount">Valor:</label>
+                <input type="number" id="expense-amount" class="form-control" step="0.01" min="0" placeholder="R$ 0,00">
+            </div>
+            
+            <div class="form-group">
+                <label for="expense-date">Data:</label>
+                <input type="date" id="expense-date" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="expense-description">Descrição:</label>
+                <input type="text" id="expense-description" class="form-control" placeholder="Descrição do gasto">
+            </div>
+            
+            <button id="add-expense" class="btn btn-primary">
+                <span class="material-icons">remove_circle</span>
+                Adicionar Gasto
+            </button>
+        </div>
+        
+        <div class="balance pulse">
+            <div>Saldo Disponível</div>
+            <div id="balance">R$ 0,00</div>
+        </div>
+        
+        <div class="section">
+            <h2><span class="material-icons">history</span> Histórico</h2>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="incomes">
+                    <span class="material-icons">savings</span>
+                    Entradas
+                </button>
+                <button class="tab-button" data-tab="expenses">
+                    <span class="material-icons">receipt</span>
+                    Gastos
+                </button>
+                <button class="tab-button" data-tab="investments">
+                    <span class="material-icons">trending_up</span>
+                    Investimentos
+                </button>
+            </div>
+            
+            <div class="tab-content active" id="incomes-tab">
+                <table id="incomes-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="tab-content" id="expenses-tab">
+                <table id="expenses-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Categoria</th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="tab-content" id="investments-tab">
+                <table id="investments-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Valor Investido</th>
+                            <th>Taxa de Juros</th>
+                            <th>Valor Acumulado</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section" style="text-align: center;">
+            <button id="export-excel" class="btn btn-secondary">
+                <span class="material-icons">download</span>
+                Exportar para Excel
+            </button>
+            <button id="open-investment" class="btn btn-secondary">
+                <span class="material-icons">show_chart</span>
+                Abrir Investimentos
+            </button>
+        </div>
+    </div>
+    
+    <!-- Modal de Investimentos -->
+    <div id="investment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>
+                <span class="material-icons">trending_up</span>
+                Gestão de Investimentos
+            </h2>
+            
+            <div class="form-group">
+                <label for="investment-amount">Valor Investido:</label>
+                <input type="number" id="investment-amount" class="form-control" step="0.01" min="0" placeholder="R$ 0,00">
+            </div>
+            
+            <div class="form-group">
+                <label for="interest-rate">Taxa de Juros Anual (%):</label>
+                <input type="number" id="interest-rate" class="form-control" step="0.01" min="0" value="13.75">
+            </div>
+            
+            <div class="form-group">
+                <label for="investment-date">Data:</label>
+                <input type="date" id="investment-date" class="form-control">
+            </div>
+            
+            <button id="add-investment" class="btn btn-primary">
+                <span class="material-icons">attach_money</span>
+                Aplicar Investimento
+            </button>
+            
+            <div class="investment-summary">
+                <h3>Resumo de Investimentos</h3>
+                <p>Total Investido: <span id="total-invested">R$ 0,00</span></p>
+                <p>Valor Acumulado: <span id="accumulated-value">R$ 0,00</span></p>
+                <p>Rendimento: <span id="earnings">R$ 0,00</span></p>
+            </div>
+            
+            <table id="detailed-investments">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Valor Investido</th>
+                        <th>Taxa de Juros</th>
+                        <th>Valor Atual</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Notificação -->
+    <div id="notification" class="notification">
+        <span class="material-icons">check_circle</span>
+        <span id="notification-message">Operação realizada com sucesso!</span>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
